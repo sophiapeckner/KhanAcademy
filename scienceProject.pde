@@ -1,100 +1,103 @@
+//credit to Ice Catcher, learning from his/her coding structure
+//find the incredible game here: https://www.khanacademy.org/computer-programming/ice-catcher-beginner/6413458907529216
+var click = false;
+var mouseIn = false;
+var page = "start";
 
-fill(43, 32, 32);
-textSize(40);
-text("Gender:", 0, 10, 200, 200);
+var randomFloat = random(100);
+//var id = int(randomFloat)
 
-var Button = function(config) {
-    this.x = config.x || 0;
-    this.y = config.y || 0;
-    this.width = config.width ||120;
-    this.height = config.height || 40;
-    this.label = config.label || "Click";
-};
-
-Button.prototype.draw = function() {
-    fill(0, 234, 255);
-    rect(this.x, this.y, this.width, this.height, 5);
-    fill(0, 0, 0);
+var record = function(tex) {
+    background(255,255,255);
     textSize(20);
-    textAlign(LEFT, TOP);
-    text(this.label, this.x+10, this.y+this.height/4);
+    println("recording "+randomFloat+"_"+tex);
 };
 
-Button.prototype.isMouseInside = function() {
-    return mouseX > this.x &&
-           mouseX < (this.x + this.width) &&
-           mouseY > this.y &&
-           mouseY < (this.y + this.height);
+var button = function(x, y, w, h, textsize, tex, nextPage) {
+    textAlign(CENTER,CENTER);
+    textSize(textsize);
+    text(tex, x + w/2, y + h/2);
+    
+    noFill();
+    strokeWeight(5);
+    stroke(3, 89, 150);
+    rect(x, y, w, h);
+
+    if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+        mouseIn = true;
+    } else {
+        mouseIn = false;
+    }
+
+    if(mouseIn) {
+        noFill();
+        strokeWeight(5);
+        stroke(0, 0, 0);
+        rect(x, y, w, h);
+        if (click  && nextPage === "record") {
+            record(tex);
+            page = "finish";
+        } else if (click) {
+            page = nextPage;
+        }
+    }
 };
 
-var btn1 = new Button({
-    x: 0,
-    y: 50,
-    label: "F"
-});
-btn1.draw();
 
-var btn2 = new Button({
-    x: 0,
-    y: 110,
-    label: "M"
-});
-btn2.draw();
-
-var btn3 = new Button({
-    x: 300,
-    y: 360,
-    label: "Start"
-});
-btn3.draw();
-
-//illusion shapes
+var time = 0;  // time in seconds
+var t0 = 0;  
 var drawRect = function(x, y) {
+   fill(0, 0, 0);
    rect(x, y, 50, 50);
-   
 };
 
+var mousePressed = function() {
+    click = true;
+};
 
-mouseClicked = function() {
-    var n = random(100);
+var draw = function() {
+    if(page === "start") {
+        fill(0);
+        textSize(50);
+        button(125,310,150,60,35,"start","pic");
 
-    if (btn1.isMouseInside()) {
-        println(n+ "_Female");
-        
-    } else if (btn2.isMouseInside()) {
-        println(n + "_Male");
-        
-    }else if (btn3.isMouseInside()){ 
-//Scene 2:
-   
+    } 
+    
+    if(page === "pic") {
         background(220, 200, 150);
-        //drawRect(0, 50);
-        //drawRect(50, 100);
-        //drawRect(100, 150);
-        //drawRect(150, 200);
-        //drawRect(200, 250);
-
-        var time = 0;  // time in seconds
-        var t0 = 0;         // previous time
-        
-       
+        //picture design
+        drawRect(0, 50);
+        drawRect(50, 100);
+        drawRect(100, 150);
+        drawRect(150, 200);
+        drawRect(200, 250);
+ 
         var t1 = millis();
-        
         if ((t1 - t0) >= 1000) {
-        // If we have, then increment our seconds counter
-        // and reset our millisecond counter.
             time++;
             t0 = t1;
-            text("1 second more:" + time, 160, 10);
-            text("1 second less:" + t0, 160, 50);
         }
-        text("this is the" + t0, 200, 110);
+
         var sec = (time % 60);
-        
-        if (sec >= 2 ){
-            background(0,0,0);
+        if (sec >= 2){
+            page = "Q1";
         }
-
-
+        
+    } 
+    
+    if (page === "Q1") {
+        
+        background(255,255,255);
+        textSize(20);
+        text("What was the color?", 50, 100, 400, 80);
+        
+        button(125,310,150,60,35,"red","record");
     }
+    if (page === "finish") {
+        background(255,255,255);
+        textSize(20);
+        text("thank you so much, goodbye", 50, 100, 400, 80);
+    }
+
+    click=false;
 };
