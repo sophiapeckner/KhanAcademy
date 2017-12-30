@@ -4,23 +4,25 @@ var click = false;
 var mouseIn = false;
 var page = "start";
 
-var randomFloat = random(100);
-//var id = int(randomFloat)
 
-var record = function(tex) {
+var id = round(random(200));
+
+var record = false;
+
+var recording = function(key, value) {
     background(255,255,255);
     textSize(20);
-    println("recording "+randomFloat+"_"+tex);
+    println(id+"_"+key+":"+value);
 };
 
-var button = function(x, y, w, h, textsize, tex, nextPage) {
+var button = function(x, y, w, h, textsize, tex, nextPage, record,label) {
     textAlign(CENTER,CENTER);
     textSize(textsize);
     text(tex, x + w/2, y + h/2);
     
     noFill();
     strokeWeight(5);
-    stroke(3, 89, 150);
+    stroke(140, 200, 200);
     rect(x, y, w, h);
 
     if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
@@ -34,9 +36,9 @@ var button = function(x, y, w, h, textsize, tex, nextPage) {
         strokeWeight(5);
         stroke(0, 0, 0);
         rect(x, y, w, h);
-        if (click  && nextPage === "record") {
-            record(tex);
-            page = "finish";
+        if (click  && record) {
+            recording(label,tex);
+            page = nextPage;
         } else if (click) {
             page = nextPage;
         }
@@ -55,11 +57,19 @@ var mousePressed = function() {
     click = true;
 };
 
-var draw = function() {
+var setup = function(){
+background(255,255,255);
+textSize(20);
+
+
+};
+
+var draw = function(){
+    
     if(page === "start") {
         fill(0);
         textSize(50);
-        button(125,310,150,60,35,"start","pic");
+        button(125,210,150,60,35,"start","pic");
 
     } 
     
@@ -86,18 +96,54 @@ var draw = function() {
     } 
     
     if (page === "Q1") {
-        
-        background(255,255,255);
-        textSize(20);
-        text("What was the color?", 50, 100, 400, 80);
-        
-        button(125,310,150,60,35,"red","record");
+        setup();
+        text("What was the color?", 15, 35, 400, 80);
+        button(125,110,150,60,35,"red","Q1Again",true,"Q1First");
+        button(125,210,150,60,35,"blue","Q1Again",true,"Q1First");
+        click = false;
     }
-    if (page === "finish") {
-        background(255,255,255);
-        textSize(20);
-        text("thank you so much, goodbye", 50, 100, 400, 80);
+    if (page === "Q1Again") {
+        setup();
+        text("are you sure? What was the color?", 0, 35, 400, 80);
+        button(125,110,150,60,35,"red","Q2",true,"Q1Again");
+        button(125,210,150,60,35,"blue","Q2",true,"Q1Again");
+        click = false;
     }
-
+    if ( page === "Q2" ){
+        setup();
+        text("how many squares were there?", 0, 35, 400, 80);
+        button(125,110,150,60,35,"8","Q2Again",true,"Q2First");
+        button(125,210,150,60,35,"12","Q2Again",true,"Q2First");
+        click = false;
+    }
+    if (page === "Q2Again"){
+        setup();
+        text("are you sure? how many squares?", 10, 35, 400, 80);
+        button(125,110,150,60,35,"8","gender",true,"Q2Again");
+        button(125,210,150,60,35,"12","gender",true,"Q2Again");
+        click = false;
+    }
+    
+    if (page === "gender"){
+        setup();
+        text("Thank you!\n I need to collect some info about you:", 0, -15, 400, 80);
+        text("your gender?", 0, 40, 200, 80);
+        button(5,105,130,60,35,"Female","age",true,"gender");
+        button(190,105,130,60,35,"Male","age",true,"gender");
+        click = false;
+    }
+    if (page === "age"){
+        setup();
+        text("Click on your age group", 0, -15, 400, 80);
+        button(5,105,130,60,35,"0-10","bye",true,"age");
+        button(190,105,130,60,35,"11-20","bye",true,"age");
+    }
+    if (page === "bye"){
+        background(178, 214, 206);
+        fill(0, 0, 0);
+        text("Thank you =)", 5, 0, 400, 80);
+    }
     click=false;
 };
+
+
