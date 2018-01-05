@@ -1,5 +1,7 @@
-var x = 10;
-
+var car1 = 8;
+var car2 = 6;
+var car3 = 4;
+var car4 = 2;
 var seeLine = function(){
     fill(255);
     stroke(0);
@@ -17,46 +19,91 @@ line(top, btm, a, d);//legs
 line(top, btm, c, d);
 };
 
-var drawCar = function(){
+var drawCar = function(x,y, color){
     noStroke();
-    //fill(255, 0, 115);
-    rect(x, 320, 100, 20);
-    rect(x + 15, 290, 70, 40);
+    rect(x, y, 100, 20);
+    rect(x + 15, y-40, 70, 40);
     fill(90);
-    ellipse(x + 26, 340, 24, 24);
-    ellipse(x + 75, 340, 24, 24);
+    ellipse(x + 25, y+20, 24, 24);
+    ellipse(x + 75, y+20, 24, 24);
 };
 
-var image1X = 50;
-var image1Y = 90;
-
+var backLeg = 105;
+var leafY1 = 0;
+var leafY2 = 0;
+var leafY3 = 0;
 var draw = function() {
     background(255);
-    seeLine();
-    stroke(0, 0, 0);
-    line(0, 365, 400, 365);
-    line(0, 305, 400, 305);
-    //main set
-    fill(255, 0, 115);
-    drawCar();
-    if (x < 290){
+    textSize(15);
+    //main pic
+    strokeWeight(5);
+    rect(0, 220, 400, 177, fill(210, 200, 150));//street
+    //cars
+    drawCar(car4, 250, fill(0, 255, 40)); 
+    drawCar(car3, 300, fill(255, 220, 220));
+    drawCar(car2,350, fill(255, 0, 10));
+    drawCar(car1,400, fill(255, 200, 0));
+    car4 += 5;
+    car3 += 4;
+    car2 += 5;
+    car1 += 6;
+    if (car1 < 290){
         drawStick(302, 330, 290, 320, 315, 345);
-    } else if (x > 290){
+    } else if (car1 > 290){
         seeLine();
         //dead stick-man
-        ellipse(345, 345, 20,20);
-        line(333, 344, 285,344);
-        line(333, 344, 315, 325);
-        line(285, 344, 265, 325);
+        ellipse(345, 310, 20,20);
+        line(333, 310, 285, 310);
+        line(333, 310, 303, 285);
+        line(285, 310, 257, 289);
+        fill(0);
+        text("OUCH! WAWA", 228, 270, 170, 70);
+        noStroke();
+        fill(30, 145, 220);
+        ellipse(332, 318, 5, 5);
+        ellipse(321, 325, 7, 7);
     }
-
     
-    x += 2;
     //distractions
-    image(getImage("avatars/starky-seed"), image1X, image1Y, 80, 80);
-    image1X += 2;
-    image1Y += 1;
-    
-    drawStick(202, 230, 190, 220, 215, 245);
+    drawStick(42, 80, 30, 70, 55, backLeg);
+    drawStick(102, 104, 90, 130, 115, 152);
+    line(90, 130, 68, 92);
+    line(115, 130, 135, 90);
+ 
+    if (backLeg <=105 && backLeg >30) {
+        backLeg -=1;
+    } else if (backLeg === 30) {
+        backLeg = 105;
+        
+    }
+    fill(135, 54, 0);
+    text("Look at our tricks!", 15, 155, 200, 100);
+    fill(191, 101, 122);
+    ellipse(136, 77, 12, 12);
+    ellipse(60, 75, 12, 12);//left ball
+    var number = random(0, 255);
+    var a = random(0, 100);
+    var b = random(0, 50);
+    fill(number, a-100, b-100);
+    seeLine();
+    arc(105, 50, 90, 25, 154,399);
+    image(getImage("cute/GrassBlock"), 250, -80, 150, 280);
+    image(getImage("avatars/leaf-grey"), 300, leafY1, 40, 40);
+    image(getImage("avatars/leaf-orange"), 330, leafY2, 40, 40);
+    image(getImage("avatars/leaf-yellow"), 360, leafY3, 40, 40);
+    image(getImage("cute/TreeTall"), 260, 120, 70, 70);
+    image(getImage("cute/TreeTall"), 300, -10, 80, 80);
+    image(getImage("cute/TreeTall"), 340, 85, 50, 50);
+    image(getImage("cute/TreeTall"), 250, 40, 50, 50);
+    leafY1 += 1;
+    leafY2 += 2;
+    leafY3 += 3;
+    if(leafY1 >= 170){
+        leafY1 = 171;
+    }if(leafY2 >= 170){
+        leafY2 = 171;
+    }if(leafY3 >= 170){
+    leafY3 = 171;
+    }
 };
 
