@@ -1,0 +1,62 @@
+var x = 10;
+
+var seeLine = function(){
+    fill(255);
+    stroke(0);
+    strokeWeight(2);
+};
+
+var drawStick = function(top, btm, a, b,c,d){
+seeLine();
+stroke(0, 0, 0);
+ellipse(top, a, 20, 20);
+line(top, top, top, btm);
+line(top, top, a, b);//arms
+line(top, top, c, b);
+line(top, btm, a, d);//legs
+line(top, btm, c, d);
+};
+
+var drawCar = function(){
+    noStroke();
+    //fill(255, 0, 115);
+    rect(x, 320, 100, 20);
+    rect(x + 15, 290, 70, 40);
+    fill(90);
+    ellipse(x + 26, 340, 24, 24);
+    ellipse(x + 75, 340, 24, 24);
+};
+
+var image1X = 50;
+var image1Y = 90;
+
+var draw = function() {
+    background(255);
+    seeLine();
+    stroke(0, 0, 0);
+    line(0, 365, 400, 365);
+    line(0, 305, 400, 305);
+    //main set
+    fill(255, 0, 115);
+    drawCar();
+    if (x < 290){
+        drawStick(302, 330, 290, 320, 315, 345);
+    } else if (x > 290){
+        seeLine();
+        //dead stick-man
+        ellipse(345, 345, 20,20);
+        line(333, 344, 285,344);
+        line(333, 344, 315, 325);
+        line(285, 344, 265, 325);
+    }
+
+    
+    x += 2;
+    //distractions
+    image(getImage("avatars/starky-seed"), image1X, image1Y, 80, 80);
+    image1X += 2;
+    image1Y += 1;
+    
+    drawStick(202, 230, 190, 220, 215, 245);
+};
+
