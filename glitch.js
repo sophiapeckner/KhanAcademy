@@ -1,4 +1,4 @@
-var mouseIn, page, button, time, t0, drawRect, mousePressed, id, record, recording, img, x;
+//var mouseIn, page, button, time, t0, drawRect, mousePressed, id, record, recording, img, x;
 
 var reset = function() {
     background(255, 255, 255);
@@ -11,10 +11,10 @@ var reset = function() {
 
 var setup = function() {
     reset();
-    img = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Ftree-dawn-nature-bucovina-56875.jpeg");
     createCanvas(600,600);
+    img = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Ftree-dawn-nature-bucovina-56875.jpeg");
     page = "start";
-    var click = false;
+    click = false;
     mouseIn = false;
     record = false;
     time = 0; // time in seconds
