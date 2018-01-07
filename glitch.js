@@ -1,35 +1,62 @@
-var click, mouseIn, page, button, time, t0, drawRect, mousePressed, id, record, recording, img;
+var mouseIn, page, button, time, t0, drawRect, mousePressed, id, record, recording, img, x;
+
 var reset = function() {
-  
     background(255, 255, 255);
     textSize(20);
     fill(0,0,0);
     strokeWeight(1);
     stroke(0, 0, 0);
+    
 }
 
 var setup = function() {
     reset();
     img = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Ftree-dawn-nature-bucovina-56875.jpeg");
-    createCanvas(400,400);
+    createCanvas(600,600);
     page = "start";
-    click = false;
+    var click = false;
     mouseIn = false;
     record = false;
     time = 0; // time in seconds
     t0 = 0;
     id = round(random(200));
+    x=10;
+};
+
+var seeLine = function(){
+  fill(255);
+  stroke(0);
+  strokeWeight(2);
+};
+
+var drawStick = function(top, btm, a, b,c,d){
+  seeLine();
+  stroke(0, 0, 0);
+  ellipse(top, a, 20, 20);
+  line(top, top, top, btm);
+  line(top, top, a, b);//arms
+  line(top, top, c, b);
+  line(top, btm, a, d);//legs
+  line(top, btm, c, d);
+};
+
+var drawCar = function(){
+  noStroke();
+  rect(x, 320, 100, 20);
+  rect(x + 15, 290, 70, 40);
+  fill(90);
+  ellipse(x + 26, 340, 24, 24);
+  ellipse(x + 75, 340, 24, 24);
+};
+
+var recording = function(key, value) {
+    //var database = firebase.database().ref();
+    //database.child(id+"/"+key).set(value);
+    firebase.database().ref(id+"/"+key).set(value);
 };
 
 var draw = function() {
-    recording = function(key, value) {
-       
-      background(255, 255, 255);
-        textSize(20);
-        println(id + "_" + key + ":" + value);
-    
-      image(img, 0,0); 
-    };
+
 
     button = function(x, y, w, h, textsize, tex, nextPage, record, label) {
 
@@ -61,12 +88,7 @@ var draw = function() {
             }
         }
     };
-
-
-    drawRect = function(x, y) {
-        fill(0, 0, 0);
-        rect(x, y, 50, 50);
-    };
+  
 
     mousePressed = function() {
         click = true;
@@ -78,27 +100,39 @@ var draw = function() {
     }
 
     if (page === "pic") {
-        background(220, 200, 150);
-        //picture design
-        drawRect(0, 50);
-        drawRect(50, 100);
-        drawRect(100, 150);
-        drawRect(150, 200);
-        drawRect(200, 250);
 
-        var t1 = millis();
-        if ((t1 - t0) >= 1000) {
-            time++;
-            t0 = t1;
-        }
+      background(255);
+      seeLine();
+      stroke(0, 0, 0);
+      line(0, 365, 400, 365);
+      line(0, 305, 400, 305);
+      //main set
+      fill(255, 0, 115);
+      drawCar();
+      x+=2;
+      if (x < 290){
+        drawStick(302, 330, 290, 320, 315, 345);
+      } else if (x > 290){
+        seeLine();
+        //dead stick-man
+        ellipse(345, 345, 20,20);
+        line(333, 344, 285,344);
+        line(333, 344, 315, 325);
+        line(285, 344, 265, 325);
+      }
+      
+      //pic stays for 5 sec
+      var t1 = millis();
+      if ((t1 - t0) >= 1000) {
+        time++;
+        t0 = t1;
+      }
 
-        var sec = (time % 60);
-        if (sec >= 2) {
-            page = "Q1";
-        }
-
+      var sec = (time % 60);
+      if (sec >= 5){
+        page = "Q1";
+      }
     }
-
     if (page === "Q1") {
         reset();
         text("About how long was the circle in the square?", 15, 35, 400, 80);
