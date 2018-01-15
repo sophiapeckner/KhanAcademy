@@ -102,8 +102,23 @@ var hardPic = function () {
 };
 
 var simplePic = function () {
-    fill(0);
-    ellipse(100, 100, 100, 100);
+        reset(); 
+    drawCar(car4, 260, fill(255, 220, 220));
+    drawCar(car3, 360, fill(0, 255, 40));
+    car4 += 3;
+    car3 += 4;
+    //distractions
+    image(yeildsign, 420, 160, 70, 70);
+    image(house, 210, -15, 200, 140);
+    if (car4 < 290) {
+        image(ogperson, 280, 220, 70, 70);
+    } else if (car4 > 290) {
+        car4 += 2;
+        car3 = 300;
+        fill(0);
+        text("OUCH! WAWA", 320, 145, 150, 70);
+        image(dead, 300, 160, 100, 100);
+    }
 };
 
 var timer = function (sec, nextPage) {
