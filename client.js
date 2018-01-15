@@ -27,6 +27,7 @@ var setup = function () {
     time = 0;
     t0 = 0;
     id = round(random(200));
+    currentTime = hour()+":"+minute();
     car1 = 8;
     car2 = 6;
     car3 = 4;
@@ -156,8 +157,8 @@ var draw = function () {
 
     if (page === "start") {
         reset();
+        recording("time", currentTime);
         button(125, 210, 180, 60, 40, "start", defaultTextColor, "pic");
-        //rect(0, 100, 100, 100, fill(0));
     }
     if (page === "pic") {
         //if(id % 2 === 0){//even
