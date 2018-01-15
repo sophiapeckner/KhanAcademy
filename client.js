@@ -2,10 +2,10 @@
 var reset = function () {
     background(255, 255, 255);
     createCanvas(600, 600);
-    fill(0, 0, 0);
+    fill("black");
+    noStroke();
     textSize(15);
-    strokeWeight(1);
-    stroke(0, 0, 0);
+    textAlign(CENTER, CENTER);
 }
 
 var setup = function () {
@@ -31,32 +31,14 @@ var setup = function () {
     car2 = 6;
     car3 = 4;
     car4 = 2;
-    thinkingmanX = 20;
-    thinkingmanY = 120;
-};
-
-var seeLine = function () {
-    fill(255);
-    stroke(0);
-    strokeWeight(2);
-};
-
-var drawStick = function (top, btm, a, b, c, d) {
-    seeLine();
-    stroke(0, 0, 0);
-    ellipse(top, a, 20, 20);
-    line(top, top, top, btm);
-    line(top, top, a, b);//arms
-    line(top, top, c, b);
-    line(top, btm, a, d);//legs
-    line(top, btm, c, d);
+    defaultTextColor = "black";
 };
 
 var drawCar = function (x, y, color) {
     noStroke();
     rect(x, y, 110, 30);
     rect(x + 13, y - 30, 80, 50);
-    fill(90);
+    fill(90);               
     ellipse(x + 35, y + 30, 24, 24);
     ellipse(x + 75, y + 30, 24, 24);
 };
@@ -134,42 +116,48 @@ var timer = function (sec, nextPage) {
     }
 };
 
-
-var button = function (x, y, w, h, textsize, tex, nextPage, record, label) {
-    textAlign(CENTER, CENTER);
-    textSize(textsize);
-    text(tex, x + w / 2, y + h / 2);
-    noFill();
-    strokeWeight(5);
-    stroke(140, 200, 200);
-    rect(x, y, w, h);
+var button = function (x, y, w, h, textsize, tex, textColor, nextPage, record, label) {
     if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
         mouseIn = true;
     } else {
         mouseIn = false;
     }
     if (mouseIn) {
+        stroke(textColor);
         noFill();
-        strokeWeight(5);
-        stroke(0, 0, 0);
+        strokeWeight(4);
         rect(x, y, w, h);
-        if (click && record) {
+        fill(textColor);
+        textSize(textsize);
+        text(tex, x + w / 2, y + h / 2);
+        if (click && record) {  
             recording(label, tex);
             page = nextPage;
         } else if (click) {
             page = nextPage;
         }
+    } else {
+        stroke(textColor);
+        noFill();
+        strokeWeight(2);
+        rect(x, y, w, h);
+        fill(textColor);
+        textSize(textsize);
+        text(tex, x + w / 2, y + h / 2);
     }
 };
+
 
 
 var mousePressed = function () {
     click = true;
 };
 var draw = function () {
+
     if (page === "start") {
-        fill(0);
-        button(125, 210, 150, 60, 50, "start", "pic");
+        reset();
+        button(125, 210, 180, 60, 40, "start", defaultTextColor, "pic");
+        //rect(0, 100, 100, 100, fill(0));
     }
     if (page === "pic") {
         //if(id % 2 === 0){//even
@@ -178,70 +166,66 @@ var draw = function () {
         //simplePic();
         //}
 
-        timer(5, "Q1");
+        timer(4, "Q1");
     }
 
     if (page === "Q1") {
         reset();
         text("What was the color of the car that hit the person?", 15, 35, 400, 80);
-        button(125, 110, 150, 60, 50, "pink", "Q2", true, "Q1First", fill(200, 90, 160));
-        button(125, 210, 150, 60, 50, "green", "Q2", true, "Q1First", fill(25, 110, 28));
+        button(125, 110, 150, 60, 50, "pink", "pink", "Q2", true, "Q1First");
+        button(125, 210, 150, 60, 50, "green", "green", "Q2", true, "Q1First");
         click = false;
     }
     if (page === "Q2") {
         reset();
         text("Was there a stop sign?", 0, 35, 400, 80);
-        button(125, 110, 150, 60, 50, "Yes", "transition", true, "Q2");
-        button(125, 210, 150, 60, 50, "No", "transition", true, "Q2");
+        button(125, 110, 150, 60, 50, "Yes", defaultTextColor,"transition", true, "Q2First");
+        button(125, 210, 150, 60, 50, "No", defaultTextColor,"transition", true, "Q2First");
         click = false;
     }
     if (page === "transition") {
-        println("this is transition")
         reset();
         textSize(20);
-        text("It is important to provide correct information.", 100, 20, 400, 100);
-        text("I am going to think twice, recalling what I just saw ...", 100, 340, 400, 100);
+        noStroke();
+        text("Please recall what you just saw for a moment...", 100, 20, 400, 100);
         image(thinkingman, 20, 120, 200, 200);
-        //thinkingmanX += 1;
-        //thinkingmanY += 1;
-        timer(10, "Q1Again");
+        timer(8, "Q1Again");
 
     }
     if (page === "Q1Again") {
         reset();
         text("what was the car's color?", 0, 35, 400, 80);
-        button(125, 110, 150, 60, 50, "pink", "Q2Again", true, "Q1Again");
-        button(125, 210, 150, 60, 50, "blue", "Q2Again", true, "Q1Again");
+        button(125, 110, 150, 60, 50, "pink", "pink","Q2Again", true, "Q1Again");
+        button(125, 210, 150, 60, 50, "blue", "blue", "Q2Again", true, "Q1Again");
         click = false;
     }
 
     if (page === "Q2Again") {
         reset();
         text("Was there a stop sign?", 10, 35, 400, 80);
-        button(125, 110, 150, 60, 50, "yes", "gender", true, "Q2Again");
-        button(125, 210, 150, 60, 50, "no", "gender", true, "Q2Again");
+        button(125, 110, 150, 60, 50, "yes", defaultTextColor, "gender", true, "Q2Again");
+        button(125, 210, 150, 60, 50, "no", defaultTextColor,"gender", true, "Q2Again");
         click = false;
     }
 
     if (page === "gender") {
         reset();
-        text("Thank you!\n I need to collect some info about you:", 0, -15, 400, 80);
-        text("your gender?", 0, 40, 200, 80);
+        text("Thank you!\n I need to collect some info about you:\n your are ?", 0, 20, 400, 80);
         textAlign(TOP, RIGHT);
-        button(0, 105, 190, 210, 50, "Female", "age", true, "gender");
-        button(225, 105, 175, 210, 50, "Male", "age", true, "gender");
+        button(0, 120, 190, 210, 50, "Female",defaultTextColor, "age", true, "gender");
+        button(225, 120, 175, 210, 50, "Male", defaultTextColor,"age", true, "gender");
         click = false;
     }
     if (page === "age") {
         reset();
-        text("Click on your age group", 0, -15, 400, 80);
-        button(20, 105, 300, 60, 50, "17 and under", "bye", true, "age");
-        button(20, 205, 300, 60, 50, "18 and over", "bye", true, "age");
+        text("Click on your age group", 0, 20, 400, 80);
+        button(20, 120, 300, 60, 50, "17 and under", defaultTextColor,"bye", true, "age");
+        button(20, 240, 300, 60, 50, "18 and over", defaultTextColor,"bye", true, "age");
     }
     if (page === "bye") {
         background(178, 214, 206);
         fill(0, 0, 0);
-        text("Thank you =)", 5, 0, 400, 80);
+        text("Thank you =)", 10, 20, 400, 80);
     }
     click = false;
 };
