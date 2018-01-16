@@ -197,6 +197,7 @@ var draw = function () {
 
     if (page === "Q1") {
         reset();
+        recording("time", currentTime);
         text("What was the color of the car that hit the person?", 0, 15, 400, 80);
         button(125, 70, 150, 60, 50, "green", "green", "Q2", true, "Q1First");
         button(125, 140, 150, 60, 50, "pink", "pink", "Q2", true, "Q1First");
@@ -257,7 +258,6 @@ var draw = function () {
         button(20, 240, 300, 60, 50, "18 and over", defaultTextColor,"bye", true, "age");
     }
     if (page === "bye") {
-        recording("time", currentTime);
         image(lightBackground);
         fill(0, 0, 0);
         text("Thank you =)", 10, 20, 400, 80);
