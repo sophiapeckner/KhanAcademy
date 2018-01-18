@@ -1,6 +1,8 @@
 var reset = function () {
     background(255, 255, 255);
-    createCanvas(600, 600);
+    frameX = 800;
+    frameY = 800;
+    createCanvas(frameX, frameY);
     fill("black");
     noStroke();
     textSize(15);
@@ -9,8 +11,10 @@ var reset = function () {
 
 var setup = function () {
     reset();
-    ogperson = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman1.png?1515717151770");
-    ogpersonX = 0;
+    crossingPerson = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPerson.png?1516172310594");
+    crossingPersonAngry = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPersonAngry.png?1516172303066")
+    crossingPersonX = 310;
+    crossingPersonY = 200;
     yeildsign = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FyeildSign.jpg?1515905969783");
     dead = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fimg3.png?1515726338399");
     liftweight = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman_weights.png?1515728878978");
@@ -19,6 +23,7 @@ var setup = function () {
     house = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fhouse.jpg?1515908309315");
     pup = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcutePup.jpg?1515908300442");
     pup2 = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fpup2.jpg?1515909836003");
+    road = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Froad.jpg?1516163020541");
     page = "start";
     click = false;
     mouseIn = false;
@@ -27,72 +32,123 @@ var setup = function () {
     t0 = 0;
     id = int(random(200));
     currentTime = hour() + ":" + minute();
-    car1 = 8;
-    car2 = 6;
-    car3 = 4;
-    car4 = 2;
+    car1 = 0;
+    car2 = 0;
+    car3 = 800;
+    car4 = 800;
+    car5 = -100;
+    car6 = 0;
+    car7 = 1000;
+    car8 = 900;
+    car9 = -100;
+    car10 = 0;
+    car11 = 900;
+    car12 = 900;
     defaultTextColor = "black";
-    trans= 2000;
+    wait1=150;
+    wait2=350;
 };
 
 var drawCar = function (x, y, color) {
     noStroke();
-    rect(x, y, 110, 30);
-    rect(x + 13, y - 30, 80, 50);
+    rect(x, y, 110, 25);
+    rect(x + 15, y - 30, 80, 40);
     fill(90);
     ellipse(x + 35, y + 30, 24, 24);
     ellipse(x + 75, y + 30, 24, 24);
 };
 
+
+
 var hardPic = function () {
     reset();
-    strokeWeight(5);
-    rect(0, 220, 400, 177, fill(210, 200, 150));
-    drawCar(car4, 260, fill(255, 220, 220));
-    drawCar(car3, 360, fill(0, 255, 40));
-    drawCar(car2, 460, fill(255, 0, 10));
-    drawCar(car1, 560, fill(255, 200, 0));
-    car4 += 8;
-    car3 += 7;
-    car2 += 6;
-    car1 += 6;
-
-    if (car1 < 290) {
-        image(ogperson, 280, 220, 70, 70);
-    } else if (car1 > 290) {
-        //dead stick man
-        car4 += 2;
-        car3 = 300;
-        car2 = 300;
-        car1 = 300;
-        fill(0);
-        text("OUCH! WAWA", 320, 145, 150, 70);
-        image(dead, 300, 160, 100, 100);
-        //image(ogperson, 250, 220, 70, 70);
-        image(ogperson, ogpersonX, 220, 70, 70);
-        if (ogpersonX <= 250) {
-            ogpersonX += 8;
-        } else if (ogpersonX > 250) {
-            ogpersonX = 251;
-            text("R U OK?", 200, 220, 90, 90);
+    image(road, 0, 300, 800, 300)
+    fill("white");
+    for (i = 0; i < 300; i = i + 20) {
+        rect(400, 320 + i, 70, 10);
+    }
+    image(crossingPerson, crossingPersonX, crossingPersonY, 70, 70);
+    drawCar(car1, 320, fill("pink"));
+    drawCar(car2, 400, fill("blue"));
+    drawCar(car3, 480, fill("red"));
+    drawCar(car4, 560, fill("yellow"));
+    car1 += 4;
+    car2 += 3;
+    car3 -= 4;
+    car4 -= 4;
+    
+    if (wait1>0){
+        wait1--;
+    } else if (wait1===0){
+        drawCar(car5, 320, fill("grey"));
+        drawCar(car6, 400, fill("orange"));
+        drawCar(car7, 480, fill("red"));
+        drawCar(car8, 560, fill("green"));
+        car5 += 4;
+        car6 += 3;
+        car7 += 3;
+        car8 -= 5;
+    }
+    
+    if (wait2>0){
+        wait2--;
+    } else if (wait2===0){
+        drawCar(car9, 320, fill("red"));
+        drawCar(car10, 400, fill("blue"));
+        drawCar(car11, 480, fill("yellow"));
+        drawCar(car12, 560, fill("green"));
+        if (car10 < 250) {
+            car9 += 3;
+            car10 += 3;
+            car12 -= 1;
+            crossingPersonX += 1;
+        } else if (car10 > 250) {
+            car9 = 200;
+            car10 = 250;
+            car12 = 510;
+        } else if (car10 === 250) {
+            car11 -= 5;
+            crossingPersonY += 2;
+            if (crossingPersonY > 400) {
+                crossingPersonY = 800;
+                image(crossingPersonAngry, crossingPersonX, 400, 70, 70)
+            }
         }
     }
-    //distractions
-    fill(135, 54, 0);
-    text("FITNESS CENTER!", 5, 130, 200, 100);
-    image(yeildsign, 420, 160, 70, 70);
-    image(liftweight, 20, 20, 90, 90);
-    image(ballworkout, 100, 20, 90, 90);
-    image(house, 210, -15, 200, 140);
-    image(pup, 0, 150, 90, 80);
-    image(pup2, 100, 150, 90, 80);
-    fill(190, 101, 125);
-    var number = random(0, 500);
-    var a = random(0, 400);
-    var b = random(0, 200);
-    fill(number, a - 100, b - 100);
-    ellipse(100, 5, 80, 20);
 
+    /*
+    drawCar(car1, 320, fill("pink"));
+    drawCar(car2, 400, fill("green"));
+    drawCar(car3, 480, fill("red"));
+    drawCar(car4, 560, fill("yellow"));
+    car1 += 4;
+    car2 += 3;
+    car3 -= 4;
+    car4 -= 4;
+    if (car2 > frameX) {
+        drawCar(car5, 320, fill("red"));
+        drawCar(car6, 400, fill("blue"));
+        drawCar(car7, 480, fill("yellow"));
+        drawCar(car8, 560, fill("green"));
+        if (car6 < 250) {
+            car5 += 3;
+            car6 += 3;
+            car8 -= 1;
+            crossingPersonX += 1;
+        } else if (car6 > 250) {
+            car5 = 200;
+            car6 = 250;
+            car8 = 510;
+        } else if (car6 === 250) {
+            car7 -= 5;
+            crossingPersonY += 2;
+            if (crossingPersonY > 400) {
+                crossingPersonY = 800;
+                image(crossingPersonAngry, crossingPersonX, 400, 70, 70)
+            }
+        }
+    }
+    */
 };
 
 var draw = function () {
