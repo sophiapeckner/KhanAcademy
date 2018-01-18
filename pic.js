@@ -13,8 +13,8 @@ var setup = function () {
     reset();
     crossingPerson = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPerson.png?1516172310594");
     crossingPersonAngry = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPersonAngry.png?1516172303066")
-    crossingPersonX = 310;
-    crossingPersonY = 200;
+    crossingPersonX = 220;
+    crossingPersonY = 400;
     yeildsign = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FyeildSign.jpg?1515905969783");
     dead = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fimg3.png?1515726338399");
     liftweight = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman_weights.png?1515728878978");
@@ -38,7 +38,7 @@ var setup = function () {
     car4 = 800;
     car5 = -100;
     car6 = 0;
-    car7 = 1000;
+    car7 = 800;
     car8 = 900;
     car9 = -100;
     car10 = 0;
@@ -58,20 +58,17 @@ var drawCar = function (x, y, color) {
     ellipse(x + 75, y + 30, 24, 24);
 };
 
-
-
-var hardPic = function () {
-    reset();
-    image(road, 0, 300, 800, 300)
+var bottom = function(){
+    image(road, 0, 500, 800, 300)
     fill("white");
     for (i = 0; i < 300; i = i + 20) {
-        rect(400, 320 + i, 70, 10);
+        rect(400, 520 + i, 70, 10);
     }
     image(crossingPerson, crossingPersonX, crossingPersonY, 70, 70);
-    drawCar(car1, 320, fill("pink"));
-    drawCar(car2, 400, fill("blue"));
-    drawCar(car3, 480, fill("red"));
-    drawCar(car4, 560, fill("yellow"));
+    drawCar(car1, 520, fill("pink"));
+    drawCar(car2, 600, fill("blue"));
+    drawCar(car3, 680, fill("red"));
+    drawCar(car4, 760, fill("yellow"));
     car1 += 4;
     car2 += 3;
     car3 -= 4;
@@ -80,10 +77,10 @@ var hardPic = function () {
     if (wait1>0){
         wait1--;
     } else if (wait1===0){
-        drawCar(car5, 320, fill("grey"));
-        drawCar(car6, 400, fill("orange"));
-        drawCar(car7, 480, fill("red"));
-        drawCar(car8, 560, fill("green"));
+        drawCar(car5, 520, fill("grey"));
+        drawCar(car6, 600, fill("orange"));
+        drawCar(car7, 680, fill("red"));
+        drawCar(car8, 760, fill("green"));
         car5 += 4;
         car6 += 3;
         car7 += 3;
@@ -93,15 +90,15 @@ var hardPic = function () {
     if (wait2>0){
         wait2--;
     } else if (wait2===0){
-        drawCar(car9, 320, fill("red"));
-        drawCar(car10, 400, fill("blue"));
-        drawCar(car11, 480, fill("yellow"));
-        drawCar(car12, 560, fill("green"));
+        drawCar(car9, 520, fill("red"));
+        drawCar(car10, 600, fill("blue"));
+        drawCar(car11, 680, fill("yellow"));
+        drawCar(car12, 760, fill("green"));
         if (car10 < 250) {
             car9 += 3;
             car10 += 3;
             car12 -= 1;
-            crossingPersonX += 1;
+            crossingPersonX += 2;
         } else if (car10 > 250) {
             car9 = 200;
             car10 = 250;
@@ -109,12 +106,17 @@ var hardPic = function () {
         } else if (car10 === 250) {
             car11 -= 5;
             crossingPersonY += 2;
-            if (crossingPersonY > 400) {
-                crossingPersonY = 800;
-                image(crossingPersonAngry, crossingPersonX, 400, 70, 70)
+            if (crossingPersonY > 600) {
+                crossingPersonY = 900;
+                image(crossingPersonAngry, crossingPersonX, 600, 70, 70)
             }
         }
     }
+}
+
+var hardPic = function () {
+    reset();
+    bottom();
 
 };
 
