@@ -13,23 +13,24 @@ var setup = function () {
     reset();
     crossingPerson = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPerson.png?1516172310594");
     crossingPersonAngry = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcrossingPersonAngry.png?1516172303066")
-    crossingPersonX = 220;
-    crossingPersonY = 400;
     yeildsign = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FyeildSign.jpg?1515905969783");
-    dead = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fimg3.png?1515726338399");
-    liftweight = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman_weights.png?1515728878978");
-    ballworkout = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fball%20excersice.jpg?1515728927380");
+    ogMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman1.png?1515717151770");
     thinkingman = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fthinking_stickman.jpg?1515731244449");
-    house = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fhouse.jpg?1515908309315");
-    pup = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FcutePup.jpg?1515908300442");
-    pup2 = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fpup2.jpg?1515909836003");
     road = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Froad.jpg?1516163020541");
+    soccerball = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FSOCCERBALL.png?1516244300973");
+    btmkickMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fkicking.png?1516253441236");
+    btmwavingMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun7.png?1516251430703")
+    callforballMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun5.png?1516251252460");
+    toprunMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun1.png?1516251277452");
+    topkickMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun2.png?1516251272009");
+    treeBack = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FparkPink.jpg?1516241610201");
     page = "start";
+    defaultTextColor = "black";
     click = false;
     mouseIn = false;
-    record = false;
     time = 0;
     t0 = 0;
+    record = false;
     id = int(random(200));
     currentTime = hour() + ":" + minute();
     car1 = 0;
@@ -44,7 +45,17 @@ var setup = function () {
     car10 = 0;
     car11 = 900;
     car12 = 900;
-    defaultTextColor = "black";
+    soccerballX = 200;
+    soccerballY = 440;
+    soccerballBackX=540;
+    soccerballBackY=373;
+    toprunManX = 350;
+    toprunManY = 310;
+    topkickManX = 540;
+    topkickrunX = 310;
+    btmkickManX = 180;
+    crossingPersonX = 220;
+    crossingPersonY = 400;
     wait1=150;
     wait2=350;
 };
@@ -58,6 +69,42 @@ var drawCar = function (x, y, color) {
     ellipse(x + 75, y + 30, 24, 24);
 };
 
+var up = function(){
+    image(treeBack, 0, 0, 800, 500);
+    image(soccerball, soccerballX, soccerballY, 40, 30);
+    image(btmkickMan, btmkickManX, 400, 70, 70);
+    soccerballX += 3;
+    soccerballY -= 0.5;
+    if (soccerballX >= 448){
+        image(toprunMan, toprunManX, 300, 90, 90)
+        toprunManX += 4.7;
+    }else{
+        image(callforballMan, 400, 300, 90, 90);
+    }
+
+    if(soccerballX >= 543){
+        soccerballX = 540;
+        soccerballY = 373;
+        //topkickManX = 540;
+        topkickManY = 350;
+        toprunManX = 900;
+        image(btmwavingMan, 180, 400, 90, 90);
+        btmkickManX = 900;
+        soccerballX = 900;
+        textSize(18);
+        strokeWeight(2);
+        text("over here!", 170, 360, 100, 50);
+        image(topkickMan, topkickManX, 310, 80, 80);
+        image(soccerball, soccerballBackX, soccerballBackY, 40, 30);
+        soccerballBackX -= 3;
+    }
+    if (soccerballBackX < 100){
+        image(topkickMan, topkickManX, topkickrunX, 80, 80);
+        text ("i'll get it!", topkickManX + 5, 280, 80, 50);
+        topkickManX -= 3;
+    }
+        
+}
 var bottom = function(){
     image(road, 0, 500, 800, 300)
     fill("white");
@@ -121,5 +168,7 @@ var hardPic = function () {
 };
 
 var draw = function () {
-    hardPic()
+    reset();
+    up();
+    bottom();
 };
