@@ -116,39 +116,6 @@ var hardPic = function () {
         }
     }
 
-    /*
-    drawCar(car1, 320, fill("pink"));
-    drawCar(car2, 400, fill("green"));
-    drawCar(car3, 480, fill("red"));
-    drawCar(car4, 560, fill("yellow"));
-    car1 += 4;
-    car2 += 3;
-    car3 -= 4;
-    car4 -= 4;
-    if (car2 > frameX) {
-        drawCar(car5, 320, fill("red"));
-        drawCar(car6, 400, fill("blue"));
-        drawCar(car7, 480, fill("yellow"));
-        drawCar(car8, 560, fill("green"));
-        if (car6 < 250) {
-            car5 += 3;
-            car6 += 3;
-            car8 -= 1;
-            crossingPersonX += 1;
-        } else if (car6 > 250) {
-            car5 = 200;
-            car6 = 250;
-            car8 = 510;
-        } else if (car6 === 250) {
-            car7 -= 5;
-            crossingPersonY += 2;
-            if (crossingPersonY > 400) {
-                crossingPersonY = 800;
-                image(crossingPersonAngry, crossingPersonX, 400, 70, 70)
-            }
-        }
-    }
-    */
 };
 
 var draw = function () {
