@@ -43,7 +43,7 @@ var setup = function () {
     car8 = 900;
     car9 = -100;
     car10 = 0;
-    car11 = 900;
+    car11 = 1000;
     car12 = 900;
     soccerballX = 200;
     soccerballY = 440;
@@ -54,10 +54,10 @@ var setup = function () {
     topkickManX = 540;
     topkickrunX = 310;
     btmkickManX = 180;
-    crossingPersonX = 220;
+    crossingPersonX = 800;
     crossingPersonY = 400;
-    wait1=150;
-    wait2=350;
+    wait1=200;
+    wait2=400;
 };
 
 var drawCar = function (x, y, color) {
@@ -76,7 +76,7 @@ var up = function(){
     soccerballX += 3;
     soccerballY -= 0.5;
     if (soccerballX >= 448){
-        image(toprunMan, toprunManX, 300, 90, 90)
+        image(toprunMan, toprunManX, 300, 80, 80)
         toprunManX += 4.7;
     }else{
         image(callforballMan, 400, 300, 90, 90);
@@ -93,12 +93,14 @@ var up = function(){
         soccerballX = 900;
         textSize(18);
         strokeWeight(2);
-        text("over here!", 170, 360, 100, 50);
+        //text("over here!", 170, 360, 100, 50);
         image(topkickMan, topkickManX, 310, 80, 80);
         image(soccerball, soccerballBackX, soccerballBackY, 40, 30);
         soccerballBackX -= 3;
     }
-    if (soccerballBackX < 100){
+    if (soccerballBackX > 100) {
+        text("over here!", 170, 360, 100, 50);
+    } else if (soccerballBackX < 100){
         image(topkickMan, topkickManX, topkickrunX, 80, 80);
         text ("i'll get it!", topkickManX + 5, 280, 80, 50);
         topkickManX -= 3;
@@ -141,16 +143,16 @@ var bottom = function(){
         drawCar(car10, 600, fill("blue"));
         drawCar(car11, 680, fill("yellow"));
         drawCar(car12, 760, fill("green"));
-        if (car10 < 250) {
+        if (car10 < 350) {
             car9 += 3;
             car10 += 3;
             car12 -= 1;
-            crossingPersonX += 2;
-        } else if (car10 > 250) {
-            car9 = 200;
-            car10 = 250;
-            car12 = 510;
-        } else if (car10 === 250) {
+            crossingPersonX -= 2;
+        } else if (car10 > 350) {
+            car9 = 300;
+            car10 = 350;
+            car12 = 610;
+        } else if (car10 === 350) {
             car11 -= 5;
             crossingPersonY += 2;
             if (crossingPersonY > 600) {
