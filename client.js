@@ -10,7 +10,7 @@ var reset = function () {
     textAlign(CENTER, CENTER);
 };
 
-var setText = function(){
+var setText = function () {
     fill("black");
     textSize(18);
     strokeWeight(2);
@@ -48,7 +48,6 @@ var setup = function () {
     t0 = 0;
     record = false;
     id = int(random(200));
-    currentTime = hour()+":"+minute();
     car1 = 0;
     car2 = 0;
     car3 = 800;
@@ -87,7 +86,7 @@ var drawCar = function (x, y, color) {
     noStroke();
     rect(x, y, 110, 30);
     rect(x + 13, y - 30, 80, 50);
-    fill(90);               
+    fill(90);
     ellipse(x + 35, y + 30, 24, 24);
     ellipse(x + 75, y + 30, 24, 24);
 };
@@ -124,7 +123,7 @@ var button = function (x, y, w, h, textsize, tex, textColor, nextPage, record, l
         textSize(textsize);
         //stroke("black");
         text(tex, x + w / 2, y + h / 2);
-        if (click && record) {  
+        if (click && record) {
             recording(label, tex);
             page = nextPage;
         } else if (click) {
@@ -144,23 +143,23 @@ var button = function (x, y, w, h, textsize, tex, textColor, nextPage, record, l
 };
 
 
-var roadBkg = function(){
+var roadBkg = function () {
     fill(150);
     rect(0, 400, 800, 300);
     stroke("white");
     strokeWeight(3);
     line(0, 410, 800, 410);
 
-    for (i = 0; i < 900; i = i + 40){
+    for (i = 0; i < 900; i = i + 40) {
         line(i, 475, i + 20, 475);
     }
     strokeWeight(5);
     stroke("yellow");
     line(0, 540, 800, 540);
     line(0, 550, 800, 550);
-    stroke  ("white");
+    stroke("white");
     strokeWeight(3);
-    for (i = 0; i < 900; i = i + 40){
+    for (i = 0; i < 900; i = i + 40) {
         line(i, 620, i + 20, 620);
     }
     fill("white");
@@ -173,11 +172,11 @@ var mousePressed = function () {
     click = true;
 };
 
-var up = function(){
+var up = function () {
     image(treeBack, 0, 0, 800, 400);
     image(jumpRope, 100, 150, 90, 90);
     image(yogaMan, yogaManX, 135, 90, 90);
-    image(love, 700,230,90,90);
+    image(love, 700, 230, 90, 90);
     image(dog, 650, 290, 50, 50);
     //image(work,10,320,80,80);
     image(yeildSign, 480, 350, 50, 50);
@@ -185,15 +184,15 @@ var up = function(){
     image(btmkickMan, btmkickManX, 300, 70, 70);
     soccerballX += 3;
     soccerballY -= 1;
-    
-    if (soccerballX >= 448){
+
+    if (soccerballX >= 448) {
         image(toprunMan, toprunManX, 200, 70, 70)
         toprunManX += 4.7;
-    }else{
+    } else {
         image(callforballMan, 400, 200, 90, 90);
     }
 
-    if(soccerballX >= 543){
+    if (soccerballX >= 543) {
         soccerballX = 540;
         soccerballY = 273;
         topkickManY = 250;
@@ -208,14 +207,14 @@ var up = function(){
     setText();
     if (soccerballBackX > 100 && soccerballBackX < 540) {
         text("over here!", 185, 260, 100, 50);
-    } else if (soccerballBackX < 100){
-        text ("I'll get it!", topkickManX + 5, 180, 100, 50);
+    } else if (soccerballBackX < 100) {
+        text("I'll get it!", topkickManX + 5, 180, 100, 50);
         topkickManX -= 3;
 
-    }  
+    }
 }
 
-var bottom = function(){
+var bottom = function () {
     roadBkg();
     image(crossingPerson, crossingPersonX, crossingPersonY, 60, 60);
     drawCar(car1, 420, fill("pink"));
@@ -226,10 +225,10 @@ var bottom = function(){
     car2 += 3;
     car3 -= 4;
     car4 -= 4;
-    
-    if (wait1>0){
+
+    if (wait1 > 0) {
         wait1--;
-    } else if (wait1===0){
+    } else if (wait1 === 0) {
         drawCar(car5, 420, fill("white"));
         drawCar(car6, 500, fill("orange"));
         drawCar(car7, 580, fill("red"));
@@ -239,10 +238,10 @@ var bottom = function(){
         car7 -= 3;
         car8 -= 5;
     }
-    
-    if (wait2 > 0){
+
+    if (wait2 > 0) {
         wait2--;
-    } else if (wait2 === 0){
+    } else if (wait2 === 0) {
         drawCar(car9, 420, fill("red"));
         drawCar(car10, 500, fill("blue"));
         drawCar(car11, 580, fill("yellow"));
@@ -267,21 +266,21 @@ var bottom = function(){
                 setText();
                 text("Ouch, WAWA", 495, 400, 200, 100);
                 btmwavingManX = 900;
-                image(btmRun,btmRunX,300,70,70);
+                image(btmRun, btmRunX, 300, 70, 70);
                 btmRunX += 2;
                 if (btmRunX > 450) {
                     btmRunX = 450;
-                    text("R U OK?",btmRunX,260,100,50);
+                    text("R U OK?", btmRunX, 260, 100, 50);
                 }
-                
+
             }
         }
     }
 }
 
 var draw = function () {
-
     if (page === "start") {
+        recording("start_time", day()+"-"+hour()+":"+minute());
         reset();
         background(178, 214, 206);
         image(clickhere, 270, 425, 200, 90);
@@ -295,18 +294,20 @@ var draw = function () {
         button(270, 500, 200, 70, 50, "START", defaultTextColor, "pic");
     }
     if (page === "pic") {
+        recording("pic_time", day() + "-" + hour() + ":" + minute());
         reset();
         up();
         bottom();
-        timer(15, "Q1");
+        timer(16, "Q1");
     }
-
     if (page === "Q1") {
+        recording("Q1_time", day() + "-" + hour() + ":" + minute());
         reset();
-        recording("time", currentTime);
         textSize(25);
-        text("What was the color of the car that hit the person?", 0, 20, 600, 50);
-        button(125, 100, 400, 70, 50, "BLUE","blue", "Q2", true, "Q1First");
+        text("What was the color of the car that hit the person?", 10, 20, 600, 50);
+        fill("red");
+        text("Reminder: do NOT refresh this page", 10, 600, 600, 50);
+        button(125, 100, 400, 70, 50, "BLUE", "blue", "Q2", true, "Q1First");
         button(125, 200, 400, 70, 50, "YELLOW", "yellow", "Q2", true, "Q1First");
         button(125, 300, 400, 70, 50, "RED", "red", "Q2", true, "Q1First");
         button(125, 400, 400, 70, 50, "GREEN", "green", "Q2", true, "Q1First");
@@ -314,72 +315,91 @@ var draw = function () {
         click = false;
     }
     if (page === "Q2") {
+        recording("Q2_time", day() + "-" + hour() + ":" + minute());
         reset();
         textSize(25);
-        text("What traffic related sign was there?", 0, 20, 600, 50);
-        button(125, 100, 400, 70, 50, "STOP", defaultTextColor,"transition", true, "Q2First");
-        button(125, 200, 400, 70, 50, "TRAFFIC LIGHT", defaultTextColor,"transition", true, "Q2First");
-        button(125, 300, 400, 70, 50, "YIELD", defaultTextColor,"transition", true, "Q2First");
-        button(125, 400, 400, 70, 50, "SPEED LIMIT", defaultTextColor,"transition", true, "Q2First");
-        button(125, 500, 400, 70, 35, "none of the above", defaultTextColor,"transition", true, "Q2First");
+        text("What traffic related sign was there?", 10, 20, 600, 50);
+        fill("red");
+        text("Reminder: do NOT refresh this page", 10, 600, 600, 50);
+        button(125, 100, 400, 70, 50, "STOP", defaultTextColor, "transition", true, "Q2First");
+        button(125, 200, 400, 70, 50, "TRAFFIC LIGHT", defaultTextColor, "transition", true, "Q2First");
+        button(125, 300, 400, 70, 50, "YIELD", defaultTextColor, "transition", true, "Q2First");
+        button(125, 400, 400, 70, 50, "SPEED LIMIT", defaultTextColor, "transition", true, "Q2First");
+        button(125, 500, 400, 70, 35, "none of the above", defaultTextColor, "transition", true, "Q2First");
         click = false;
     }
     if (page === "transition") {
+        recording("transition_time", day() + "-" + hour() + ":" + minute());
         reset();
         image(police, 600, 250, 300, 300);
         image(thinkingman, 10, 245, 300, 300);
         textSize(25);
-        text("...Please take a moment and think back to what you saw again...", 200, 80, 600, 200);
-        timer(22, "Q1Again");
+        text("...Please take a moment (about 5-10 seconds ) and think back to what you saw again...", 180, 80, 600, 200);
+        fill("red");
+        text("Reminder: do NOT refresh this page", 10, 600, 600, 50);
+
+        timer(24, "Q1Again");
 
     }
     if (page === "Q1Again") {
-      reset();
-      textSize(25);
-      text("What was the color of the car that hit the person?", 0, 20, 600, 50);
-      button(125, 100, 400, 70, 50, "BLUE","blue", "Q2Again", true, "Q1Again");
-      button(125, 200, 400, 70, 50, "YELLOW", "yellow", "Q2Again", true, "Q1Again");
-      button(125, 300, 400, 70, 50, "RED", "red", "Q2Again", true, "Q1Again");
-      button(125, 400, 400, 70, 50, "GREEN", "green", "Q2Again", true, "Q1Again");
-      button(125, 500, 400, 70, 35, "none of the above", "black", "Q2Again", true, "Q1Again");
-      click = false;
+        recording("Q1Again_time", day() + "-" + hour() + ":" + minute());
+        reset();
+        textSize(25);
+        text("What was the color of the car that hit the person?", 10, 20, 600, 50);
+        fill("red");
+        text("Reminder: do NOT refresh this page", 10, 600, 600, 50);
+        button(125, 100, 400, 70, 50, "BLUE", "blue", "Q2Again", true, "Q1Again");
+        button(125, 200, 400, 70, 50, "YELLOW", "yellow", "Q2Again", true, "Q1Again");
+        button(125, 300, 400, 70, 50, "RED", "red", "Q2Again", true, "Q1Again");
+        button(125, 400, 400, 70, 50, "GREEN", "green", "Q2Again", true, "Q1Again");
+        button(125, 500, 400, 70, 35, "none of the above", "black", "Q2Again", true, "Q1Again");
+        click = false;
     }
 
     if (page === "Q2Again") {
+        recording("Q2Again_time", day()+"-"+hour()+":"+minute());
         reset();
         textSize(25);
-        text("What traffic related sign was there?", 0, 20, 600, 50);
-        button(125, 100, 400, 70, 50, "STOP", defaultTextColor,"gender", true, "Q2Again");
-        button(125, 200, 400, 70, 50, "TRAFFIC LIGHT", defaultTextColor,"gender", true, "Q2Again");
-        button(125, 300, 400, 70, 50, "YIELD", defaultTextColor,"gender", true, "Q2Again");
-        button(125, 400, 400, 70, 50, "SPEED LIMIT", defaultTextColor,"gender", true, "Q2Again");
-        button(125, 500, 400, 70, 35, "none of the above", defaultTextColor,"gender", true, "Q2Again");
+        text("What traffic related sign was there?", 10, 20, 600, 50);
+        fill("red");
+        text("Reminder: do NOT refresh this page", 10, 600, 600, 50);
+        button(125, 100, 400, 70, 50, "STOP", defaultTextColor, "gender", true, "Q2Again");
+        button(125, 200, 400, 70, 50, "TRAFFIC LIGHT", defaultTextColor, "gender", true, "Q2Again");
+        button(125, 300, 400, 70, 50, "YIELD", defaultTextColor, "gender", true, "Q2Again");
+        button(125, 400, 400, 70, 50, "SPEED LIMIT", defaultTextColor, "gender", true, "Q2Again");
+        button(125, 500, 400, 70, 35, "none of the above", defaultTextColor, "gender", true, "Q2Again");
         click = false;
     }
 
     if (page === "gender") {
+        recording("gender_time", day()+"-"+hour()+":"+minute());
         reset();
         textSize(25);
-        text("Thank you!\n I need to collect some info about you, are you:", 0, 20, 600, 200);
-        button(125, 200, 400, 70, 50, "FEMALE",defaultTextColor, "age", true, "gender");
-        button(125, 300, 400, 70, 50, "MALE", defaultTextColor,"age", true, "gender");
+        text("Thank you!\n I need to collect some info about you, are you:", 10, 20, 600, 200);
+        button(125, 200, 400, 70, 50, "FEMALE", defaultTextColor, "age", true, "gender");
+        button(125, 300, 400, 70, 50, "MALE", defaultTextColor, "age", true, "gender");
         click = false;
     }
     if (page === "age") {
+        recording("age_time", day()+"-"+hour()+":"+minute());
         reset();
         textSize(25);
-        text("Click on your age group", 0, 20, 600, 200);
-        button(125, 200, 400, 70, 50, "17 AND UNDER", defaultTextColor,"bye", true, "age");
-        button(125, 300, 400, 70, 50, "18 AND OVER", defaultTextColor,"bye", true, "age");
+        text("Click on your age group", 10, 20, 600, 200);
+        button(125, 200, 400, 70, 50, "17 AND UNDER", defaultTextColor, "bye", true, "age");
+        button(125, 300, 400, 70, 50, "18 AND OVER", defaultTextColor, "bye", true, "age");
     }
     if (page === "bye") {
+        recording("bye_time", day() + "-" + hour() + ":" + minute());
         reset();
         background(178, 214, 206);
         fill("black");
         textSize(50);
         text("Thank you =)", 150, 50, 400, 80);
         textSize(25);
-        text("Please close this page\nRemember, each person can only run it ONCE", 10, 150, 600, 80);
+        textAlign(LEFT);
+        text("Please close this page.", 50, 150, 300, 50);
+        fill("red");
+        text("Reminder: each participant can only run it ONCE", 50, 200, 600, 50);
     }
     click = false;
 };
