@@ -70,7 +70,7 @@ echo "color change from right to wrong $colorChangeToWrongPercent --"
 yellow2=$(cat validData.txt | awk '$3=="yellow"' | wc -l)
 colorChangeToRight=$(cat validData.txt | awk '$2!="yellow" && $3=="yellow"'| wc -l)
 colorChangeToRightPercent=$(echo %$(echo "scale = 2; ($colorChangeToRight / $yellow2)" | bc -l | awk -F '.' '{print $2}'))
-echo "color change from right to wrong $colorChangeToRightPercent --"
+echo "color change from wrong to right $colorChangeToRightPercent --"
 
 
 yield1=$(cat validData.txt | awk '$5=="yield"' | wc -l)
