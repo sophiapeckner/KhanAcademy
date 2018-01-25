@@ -58,6 +58,7 @@ for j in 17_and_under 18_and_over; do
     colorPercent=$(echo %$(echo "scale = 2; ($color / $total)" | bc -l | awk -F '.' '{print $2}'))
     signPercent=$(echo %$(echo "scale = 2; ($sign / $total)" | bc -l | awk -F '.' '{print $2}'))
     colorAndSignPercent=$(echo %$(echo "scale = 2; ($colorAndSign / $total)" | bc -l | awk -F '.' '{print $2}'))
+		echo $j $i $total $colorAndSign
 	  echo $j $i $total $colorPercent $signPercent $colorAndSignPercent
   done
 done
