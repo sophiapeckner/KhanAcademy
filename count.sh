@@ -58,7 +58,9 @@ for j in 17_and_under 18_and_over; do
     colorPercent=$(echo %$(echo "scale = 2; ($color / $total)" | bc -l | awk -F '.' '{print $2}'))
     signPercent=$(echo %$(echo "scale = 2; ($sign / $total)" | bc -l | awk -F '.' '{print $2}'))
     colorAndSignPercent=$(echo %$(echo "scale = 2; ($colorAndSign / $total)" | bc -l | awk -F '.' '{print $2}'))
+		echo "## totalNumber ColorAndSignRightNumber ##"
 		echo $j $i $total $colorAndSign
+		echo "## total colorRightPercent signRightPercent colorAndSignRightPercent ##" 
 	  echo $j $i $total $colorPercent $signPercent $colorAndSignPercent
   done
 done
@@ -66,21 +68,24 @@ echo "--- interesting statstic about changing mind ---"
 yellow1=$(cat validData.txt | awk '$2=="yellow"' | wc -l)
 colorChangeToWrong=$(cat validData.txt | awk '$2=="yellow" && $3!="yellow"' | wc -l)
 colorChangeToWrongPercent=$(echo %$(echo "scale = 2; ($colorChangeToWrong / $yellow1)" | bc -l | awk -F '.' '{print $2}'))
-echo "color change from right to wrong $colorChangeToWrongPercent --"
+echo "## change answer from yellow to nonYellow - $colorChangeToWrong ##"
 
 yellow2=$(cat validData.txt | awk '$3=="yellow"' | wc -l)
 colorChangeToRight=$(cat validData.txt | awk '$2!="yellow" && $3=="yellow"'| wc -l)
 colorChangeToRightPercent=$(echo %$(echo "scale = 2; ($colorChangeToRight / $yellow2)" | bc -l | awk -F '.' '{print $2}'))
-echo "color change from wrong to right $colorChangeToRightPercent --"
+echo "## change answer from nonYellow to yellow - $colorChangeToRight ##"
+#echo "color change from wrong to right $colorChangeToRightPercent --"
 
 
 yield1=$(cat validData.txt | awk '$5=="yield"' | wc -l)
 signChangeToWrong=$(cat validData.txt | awk '$4=="yield" && $5!="yield"'|wc -l)
 signChangeToWrongPercent=$(echo %$(echo "scale = 2; ($signChangeToWrong / $yield1)" | bc -l | awk -F '.' '{print $2}'))
-echo "sign change from right to wrong $signChangeToWrongPercent --"
+echo "## change answer from yield to nonYield - $signChangeToWrong ##"
+#echo "sign change from right to wrong $signChangeToWrongPercent --"
 
 yield2=$(cat validData.txt | awk '$5=="yield"' | wc -l)
 signChangeToRight=$(cat validData.txt | awk '$4!="yield" && $5=="yield"' |wc -l)
 signChangeToRightPercent=$(echo %$(echo "scale = 2; ($signChangeToRight / $yield2)" | bc -l | awk -F '.' '{print $2}'))
-echo "sign change from wrong to right $signChangeToRightPercent --"
+echo "## change answer from nonYield to Yield - $signChangeToRight ##"
+#echo "sign change from wrong to right $signChangeToRightPercent --"
 
