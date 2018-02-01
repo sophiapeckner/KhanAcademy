@@ -20,13 +20,9 @@ var setup = function () {
     reset();
     crossingPerson = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman1.png?1515717151770");
     crossingPersonAngry = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun7.png?1516251430703");
-    yeildsign = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FyeildSign.jpg?1515905969783");
-    ogMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fstickman1.png?1515717151770");
     thinkingman = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fthinking_stickman.jpg?1515731244449");
-    road = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Froad.jpg?1516163020541");
     soccerball = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FSOCCERBALL.png?1516244300973");
     btmkickMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Fkicking.png?1516253441236");
-    ohNo = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2FwalkW1.png?1516513105617");
     btmwavingMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun7.png?1516251430703")
     callforballMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun5.png?1516251252460");
     toprunMan = loadImage("https://cdn.glitch.com/5daadb6b-664c-4228-9e6b-6b4cb1cdc269%2Frun3.png?1516251266844");
@@ -47,7 +43,7 @@ var setup = function () {
     time = 0;
     t0 = 0;
     record = false;
-    id = int(random(200));
+    id = int(random(1200));
     car1 = 0;
     car2 = 0;
     car3 = 800;
@@ -78,11 +74,9 @@ var setup = function () {
     crossingPersonY = 310;
     wait1 = 250;
     wait2 = 500;
-    time = 0;
-    t0 = 0;
 };
 
-var drawCar = function (x, y, color) {
+var drawCar = function (x, y) {
     noStroke();
     rect(x, y, 110, 30);
     rect(x + 13, y - 30, 80, 50);
@@ -92,9 +86,7 @@ var drawCar = function (x, y, color) {
 };
 
 var recording = function (key, value) {
-    //var database = firebase.database().ref();
-    //database.child(id+"/"+key).set(value);
-    firebase.database().ref("test/" + id + "/" + key).set(value);
+    //firebase.database().ref("test/" + id + "/" + key).set(value);
 };
 
 var timer = function (sec, nextPage) {
@@ -121,7 +113,6 @@ var button = function (x, y, w, h, textsize, tex, textColor, nextPage, record, l
         rect(x, y, w, h);
         fill(textColor);
         textSize(textsize);
-        //stroke("black");
         text(tex, x + w / 2, y + h / 2);
         if (click && record) {
             recording(label, tex);
@@ -130,7 +121,6 @@ var button = function (x, y, w, h, textsize, tex, textColor, nextPage, record, l
             page = nextPage;
         }
     } else {
-        //stroke(textColor);
         stroke("black");
         noFill();
         strokeWeight(3);
@@ -178,7 +168,6 @@ var up = function () {
     image(yogaMan, yogaManX, 135, 90, 90);
     image(love, 700, 230, 90, 90);
     image(dog, 650, 290, 50, 50);
-    //image(work,10,320,80,80);
     image(yeildSign, 480, 350, 50, 50);
     image(soccerball, soccerballX, soccerballY, 40, 30);
     image(btmkickMan, btmkickManX, 300, 70, 70);
