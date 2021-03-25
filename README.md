@@ -5,8 +5,8 @@
 * Coded an animation that tests recollection levels during varying time periods
 
 ### Screenshots
-![First Sample Image](science_fair_1.png)
-![Second Sample Image](science_fair_2.png)
+<img src="science_fair_1.png" width=65% height=65%>
+<img src="science_fair_2.png" width=65% height=65%>
 
 ### Features
 
