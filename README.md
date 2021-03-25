@@ -12,4 +12,4 @@
 
 * An animation of a "crime scene" that features moving objects
 * Form that collects user response
-* Firebase Itegration to collect data
+* Firebase integration to collect data
